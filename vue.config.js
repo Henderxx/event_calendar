@@ -1,11 +1,11 @@
 module.exports = {
-    publicPath: `/`,
     css: {
       loaderOptions: {
         sass: {
-          prependData:
-            `@import "@/scss/_global.scss"`
-          
+          additionalData: `
+          @import "@/scss/global.scss";
+          `,
+          implementation: require('sass')
         }
       }
     }
