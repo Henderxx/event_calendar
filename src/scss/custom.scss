@@ -4,15 +4,10 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
-    margin-top: 50px;
+    color: #bdbdbd;
+    background-color: #2f3e4d;
 
   }
-
-  h1 {
-    font-size: 80px;
-}
-
-div.mimi {
-  background-color: rgb(19, 156, 180);
-}
+  body {
+    background-color: #2f3e4d !important;
+  }
