@@ -11,3 +11,7 @@
   body {
     background-color: #2f3e4d !important;
   }
+
+  .vuecal__cell:before {
+    border: none;
+  }
