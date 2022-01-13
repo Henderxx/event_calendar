@@ -10,9 +10,11 @@
 </template>
 
 <script>
+import VCalendar from 'v-calendar';
 
 export default {
-    name:'calendar'
+    name:'calendar',
+    components: {VCalendar}
 }
 </script>
 
