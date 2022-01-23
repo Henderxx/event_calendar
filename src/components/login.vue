@@ -1,7 +1,7 @@
 <template>
   <form class="" @submit.prevent="onSubmit">
     <div class="form-floating mb-3">
-      <input type="email" class="form-control rounded-4" id="floatingInput" placeholder="name@example.com" v-model="loginEmail">
+      <input type="text" class="form-control rounded-4" id="floatingInput" placeholder="name@example.com" v-model="loginEmail">
       <label for="floatingInput">Email</label>
     </div>
     <div class="form-floating mb-3">
@@ -11,6 +11,9 @@
     <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Zaloguj</button>
     <small class="text-muted">Logując się wkraczasz na nieznane dotąd miejsca ...</small>
     <hr class="my-4">
+    <div v-if="alert.message" class="pt-5 bg-bg-bg-warning">
+          <p>{{alert.message}}</p>
+      </div>
   </form>
 </template>
 
