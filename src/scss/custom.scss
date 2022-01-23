@@ -43,7 +43,10 @@ body {
     width: 55px;
     height: fit-content;
     overflow: hidden;
-    // background-color: #3c899c;
+    
+    .navbar-nav {
+      background-color: #0dcaf00f;
+    }
     // padding-top: 20px;
     
     // ul {
