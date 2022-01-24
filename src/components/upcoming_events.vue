@@ -4,6 +4,18 @@
           <button class="btn btn-dark me-5" v-on:click="fetchEvents">Weż zdarzenia</button>
           <button class="btn btn-dark" v-on:click="fetchEvents2">Weż zdarzenia v2</button>
       </div>
+     
+<ol id="exvfor" class="my-5 pb-5">
+
+        <li v-for="ev of _events" :key="ev.eventname">
+            {{ev}}
+            
+            
+        </li>
+       
+    
+</ol>
+
       <table class="table table-dark table-striped">
           <thead>
           <tr>
@@ -48,6 +60,7 @@
 
       </table>
 
+        
       <div v-if="alert.message" class="pt-5 bg-bg-bg-warning">
           <p>{{alert.message}}</p>
       </div>
@@ -83,9 +96,7 @@ export default {
         },
 
         async fetchEvents2(){
-             this.res = await axios.get('http://136.243.156.120:32402/api/list', {
-                 headers: {'Access-Control-Allow-Origin': '*'}
-             })
+             this.res = await axios.get('http://136.243.156.120:32402/api/list')
         }
     },
 

@@ -1,8 +1,8 @@
 <template>
   <form class="" @submit.prevent="onSubmit">
     <div class="form-floating mb-3">
-      <input type="text" class="form-control rounded-4" id="floatingInput" placeholder="name@example.com" v-model="loginEmail">
-      <label for="floatingInput">Email</label>
+      <input type="text" class="form-control rounded-4" id="floatingInput" placeholder="Login" v-model="loginUser">
+      <label for="floatingInput">Login</label>
     </div>
     <div class="form-floating mb-3">
       <input type="password" class="form-control rounded-4" id="floatingPassword" placeholder="Hasło" v-model="password">
@@ -25,7 +25,7 @@ import FormData from 'form-data'
 export default {
   data() {
     return {
-      loginEmail: '',
+      loginUser: '',
       password: ''
     }
   },
@@ -44,7 +44,7 @@ export default {
     onSubmit(){
       const form = new FormData()
 
-      form.append('login', this.loginEmail)
+      form.append('login', this.loginUser)
       form.append('haslo', this.password)
       // const formData = {
       //   login: this.loginEmail,
