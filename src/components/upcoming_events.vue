@@ -48,13 +48,6 @@
 
       </table>
 
-      <div class="pt-5 bg-light">
-          <p>{{res}}</p>
-      </div>
-
-      <div class="pt-5 bg-bg-success">
-          <p>{{$store.state._events}}</p>
-      </div>
       <div v-if="alert.message" class="pt-5 bg-bg-bg-warning">
           <p>{{alert.message}}</p>
       </div>

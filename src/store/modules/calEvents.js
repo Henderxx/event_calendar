@@ -15,7 +15,8 @@ const actions = {
 
     async getEvents({commit, dispatch}) {
         try {
-            const res = await axios.get('http://136.243.156.120:32402/api/list')
+            //const res = await axios.get('http://136.243.156.120:32402/api/list')
+            const res = await axios.get('http://192.168.0.150:32402/api/list')
             commit('saveEvents', res )
         } catch (error) {
             const errorMessage = (error.message && error.state) || error

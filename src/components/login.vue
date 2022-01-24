@@ -8,7 +8,7 @@
       <input type="password" class="form-control rounded-4" id="floatingPassword" placeholder="Hasło" v-model="password">
       <label for="floatingPassword">Hasło</label>
     </div>
-    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Zaloguj</button>
+    <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" >Zaloguj</button>
     <small class="text-muted">Logując się wkraczasz na nieznane dotąd miejsca ...</small>
     <hr class="my-4">
     <div v-if="alert.message" class="pt-5 bg-bg-bg-warning">
@@ -19,6 +19,8 @@
 
 <script>
 import {mapState, mapActions } from 'vuex'
+import FormData from 'form-data'
+
 
 export default {
   data() {
@@ -40,11 +42,15 @@ export default {
     }),
 
     onSubmit(){
-      const formData = {
-        login: this.loginEmail,
-        haslo: this.password
-      }
-      this.login(formData)
+      const form = new FormData()
+
+      form.append('login', this.loginEmail)
+      form.append('haslo', this.password)
+      // const formData = {
+      //   login: this.loginEmail,
+      //   haslo: this.password
+      // }
+      this.login(form)
     }
   },
 
