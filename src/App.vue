@@ -58,7 +58,7 @@
             <div class="modal-dialog">
               <div class="modal-content rounded-4 shadow">
                 <div class="modal-header p-5 pb-4 border-bottom-0">
-                  <h5 class="modal-title text-center" id="formularzModalLabel">Dodaj wydarzenie</h5>
+                  <h5 class="modal-title text-center" id="formularzModalLabel">Dodawanie wydarzenia</h5>
                   <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -76,6 +76,7 @@ import VueCal from './components/cal2.vue'
 import Login from './components/login.vue'
 import Form from './components/formularz.vue'
 import Upcoming from './components/upcoming_events.vue'
+
 
 
 

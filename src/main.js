@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VCalendar from 'v-calendar';
 import App from './App.vue'
 import store from './store'
 import 'bootstrap'
@@ -7,7 +8,7 @@ import 'bootstrap'
 
 
 Vue.config.productionTip = false
-
+ Vue.use(VCalendar)
 
 new Vue({
   store,
