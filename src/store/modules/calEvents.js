@@ -24,7 +24,7 @@ const actions = {
 }
 
 const getters = {
-    _events(state) {
+    _eventsGetter(state) {
         return state._events
     }
 }

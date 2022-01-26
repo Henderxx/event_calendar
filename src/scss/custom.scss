@@ -100,7 +100,19 @@ color: #bdbdbd;
     background-color: #3c899c;
     color: black;
   }
-
+  .vuecal__cell--has-events {
+    background-color: #2f834f;
+  }
+  .vuecal__cell-events-count {
+    width: 25px;
+    height: 25px;
+    font-size: 13px;
+    line-height: 27px;
+    
+  }
+  .vuecal--blue-theme .vuecal__cell-events-count{
+    background-color: #174c56;
+  }
   // .vuecal__cells.month-view .vuecal__cell, .vuecal__cells.week-view .vuecal__cell {
   //   color: #bdbdbd;
   // }

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const state = {
-    email: '',
+    login: '',
     password: '',
     user: ''
     
@@ -25,10 +25,7 @@ const actions = {
             
             //const res = await axios.post('http://192.168.0.150:32402/api/login', authData)
             const res = await axios.post('http://136.243.156.120:32402/api/login', authData)
-            // const res = await axios.post('http://136.243.156.120:32402/api/login', {
-            //     login: authData.login,
-            //     haslo: authData.password
-            // })
+
 
             if(res.status === 200) {
                 commit('storeUser', {

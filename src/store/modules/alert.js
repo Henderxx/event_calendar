@@ -1,6 +1,7 @@
 const state = {
     type: null,
-    message: null
+    message: null,
+    response: ''
 }
 
 const mutations = {
@@ -15,6 +16,9 @@ const mutations = {
     clear(state){
         state.type = null
         state.message = null
+    },
+    setResponse(state,message) {
+        state.response = message
     }
 }
 
@@ -28,6 +32,9 @@ const actions = {
     clear({ commit }) {
         commit('clear')
     },
+    response({commit}, message){
+        commit('setResponse', message)
+    }
 
 }
 

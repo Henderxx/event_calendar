@@ -22,12 +22,12 @@
       <div class="triangle-bottomright"></div>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a href="#" class="nav-link fs-1 text-info" data-bs-toggle="modal" data-bs-target="#logInModal">
+          <a href="#" class="nav-link fs-1 text-info" data-bs-toggle="modal" data-bs-target="#logInModal" @click.prevent="clearAlert">
             <i class="bi bi-person-square"></i>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link fs-1 text-info" data-bs-toggle="modal" data-bs-target="#formularzModal">
+          <a href="#" class="nav-link fs-1 text-info" data-bs-toggle="modal" data-bs-target="#formularzModal" @click.prevent="clearAlert">
             <i class="bi bi-plus-circle"></i>
           </a>
         </li>
@@ -39,7 +39,7 @@
           <!-- Login Modal -->
           <div class="modal fade" id="logInModal" tabindex="-1" aria-labelledby="logInModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-              <div class="modal-content rounded-4 shadow">
+              <div class="modal-content rounded-3 shadow">
                 <div class="modal-header p-5 pb-4 border-bottom-0">
                   <h5 class="modal-title text-center" id="logInModalLabel">Logowanie</h5>
                   <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Zamknij"></button>
@@ -56,7 +56,7 @@
           <!-- Formularz Modal -->
           <div class="modal fade" id="formularzModal" tabindex="-1" aria-labelledby="formularzModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-              <div class="modal-content rounded-4 shadow">
+              <div class="modal-content rounded-3 shadow">
                 <div class="modal-header p-5 pb-4 border-bottom-0">
                   <h5 class="modal-title text-center" id="formularzModalLabel">Dodawanie wydarzenia</h5>
                   <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -76,6 +76,7 @@ import VueCal from './components/cal2.vue'
 import Login from './components/login.vue'
 import Form from './components/formularz.vue'
 import Upcoming from './components/upcoming_events.vue'
+import { mapActions, mapState } from 'vuex'
 
 
 
@@ -89,7 +90,22 @@ export default {
     'login': Login,
     'upcoming': Upcoming
     
-  }
+  },
+  computed: {
+    ...mapState({
+      alert: state => state.alert
+    })
+  },
+
+  methods: {
+    ...mapActions('alert',{
+      clear: 'clear'
+    }),
+
+    clearAlert(){
+      this.clear()
+    }
+  },
 }
 </script>
 

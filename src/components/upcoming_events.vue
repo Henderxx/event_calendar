@@ -3,7 +3,6 @@
       <div class="my-5 py-5 text-center">
           <button class="btn btn-dark me-5" v-on:click="getEvents">Weż zdarzenia</button>
       </div>
-
       <table class="table table-dark table-striped">
           <thead class="table-light">
           <tr>
@@ -16,38 +15,31 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(ev,index) of _events" :key="ev.eventname">
-              <td>{{index}}</td>
+          <tr v-for="(ev,index) of _eventsGetter" :key="index">
+              <td>{{index + 1}}</td>
               <td>{{ev.eventstartdate}}</td>
               <td>{{ev.eventstopdate}}</td>
               <td>{{ev.eventname}}</td>
               <td>{{ev.eventpersoncreator}}</td>
               <td>{{ev.descr}}</td>
           </tr>
-
-
           </tbody>
-
       </table>
-
-        
-
   </div>
 </template>
 
 <script>
-import {mapState, mapActions } from 'vuex'
+import {mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
-    data(){
-        return {
-        }
-    },
-    
     computed: {
         ...mapState({
-            _events: state => state.calEvents._events,
+            // _events: state => state.calEvents._events,
             alert: state => state.alert
+        }),
+
+        ...mapGetters('calEvents', {
+            _eventsGetter: '_eventsGetter'
         })
     },
 
@@ -55,16 +47,11 @@ export default {
         ...mapActions('calEvents', {
             getEvents: 'getEvents'
         }),
-
-        // async fetchEvents() {
-        //     this.getEvents()
-        // },
     },
 
     mounted() {
         this.getEvents()
     }
-
 }
 </script>
 
