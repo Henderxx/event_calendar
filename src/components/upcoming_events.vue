@@ -39,7 +39,7 @@ export default {
         }),
 
         ...mapGetters('calEvents', {
-            _eventsGetter: '_eventsGetter'
+            _eventsGetter: 'eventsGetter'
         })
     },
 

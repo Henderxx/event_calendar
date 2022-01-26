@@ -6,7 +6,7 @@
             active-view="month"
            
             :disable-views="['week','year','years']"
-            :events="eventyTest"
+            :events="calendarEvents"
             >
         </vue-cal>
     </div>
@@ -49,7 +49,9 @@ export default {
     },
     computed: {
         ...mapGetters('calEvents',{
-            _eventy: '_eventsGetter'
+            eventy: 'eventsGetter',
+            calendarEvents: 'calendarEventsGet'
+
         })
     }
 }

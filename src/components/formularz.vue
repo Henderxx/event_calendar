@@ -12,7 +12,7 @@
     <label for="eventDescription" class="form-label">Opis wydarzenia</label>
     <textarea rows="3" class="form-control bg-dark text-white" v-model="eventDescription" id="eventDescription"></textarea>
   </div>
-  <div class="mb-3 row mx-auto pb-3 mb-3">
+  <div class="mb-3 pb-3 row ">
     <div class="col">
         <label for="startDate" class="form-label">Data rozpoczęcia</label>
           <v-date-picker v-model="startDate" mode="dateTime" is24hr :model-config="modelConfig" :min-date="new Date()" >
