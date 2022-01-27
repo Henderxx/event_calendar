@@ -2,7 +2,7 @@
     <div id="cal">
         <vue-cal class=" vuecal--blue-theme"
             locale="pl"
-            :time="false"
+            
             active-view="month"
            
             :disable-views="['week','year','years']"

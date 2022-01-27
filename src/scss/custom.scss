@@ -113,6 +113,33 @@ color: #bdbdbd;
   .vuecal--blue-theme .vuecal__cell-events-count{
     background-color: #174c56;
   }
+  .vuecal__title button{
+    color: #bdbdbd;
+  }
+  .vuecal__event{
+    cursor: pointer;
+  }
+  .vuecal__event-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 4px 0 8px;
+  }
+  
+  .vuecal__event-time {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  
+  .vuecal__event-content {
+    font-style: italic;
+  }
+  .vuecal__event.prelection{
+    background-color: #8d6e2c;
+    border: 1px solid #2f3e4d;
+    color: #bdbdbd;
+  }
   // .vuecal__cells.month-view .vuecal__cell, .vuecal__cells.week-view .vuecal__cell {
   //   color: #bdbdbd;
   // }

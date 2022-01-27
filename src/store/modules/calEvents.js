@@ -16,14 +16,18 @@ const mutations = {
     saveEvents(state, EventData) {
         state._events = EventData
     },
+    // clearCalendar(state){
+    //     state.calendarEvents = []
+    // },
     addCalendarEvents(state, data) {
-    
+        state.calendarEvents = []
         for(const item of data ) {
             const newItem = {}
-            const isoDateStart = item.eventstartdate
-            const isoDatestop = item.eventstopdate
+            const isoDateStart = new Date(item.eventstartdate)
+            const isoDateStop = new Date(item.eventstopdate)
+            
             newItem.start = isoDateStart
-            newItem.end = isoDatestop
+            newItem.end = isoDateStop
             newItem.title = item.eventname
             if(item.descr === null){
                 newItem.content = ''
@@ -31,7 +35,7 @@ const mutations = {
                 newItem.content = item.descr.slice(0,200) + '...'
             }
             
-            newItem.class = 'blue-event'
+            newItem.class = 'prelection'
             newItem.deletable = false
             newItem.resizable = false
             newItem.draggable = false

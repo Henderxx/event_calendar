@@ -1,8 +1,8 @@
 <template>
   <div id="upcoming">
-      <div class="my-5 py-5 text-center">
+      <!-- <div class="my-5 py-5 text-center">
           <button class="btn btn-dark me-5" v-on:click="getEvents">Weż zdarzenia</button>
-      </div>
+      </div> -->
       <table class="table table-dark table-striped">
           <thead class="table-light">
           <tr>

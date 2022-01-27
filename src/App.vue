@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="hide-scrollbar">
-        <div class="bg-dark text-secondary px-4 py-5 text-center">
+        <div class="bg-dark px-4 py-5 text-center">
             <div class="py-5">
               <div class="col-lg-8 mx-auto">
               <h1 class="display-5 fw-bold text-white mb-4 pb-3"> Witaj w Kalendarzu Karczmy</h1>
@@ -13,7 +13,7 @@
             <div class="py-5">
               <div class="col-lg-8 mx-auto">
               <h1 class="display-5 fw-bold text-white mb-4 pb-3"> Nadchodzące wydarzenia</h1>
-                <upcoming class="mt-4"></upcoming>
+                <upcoming class="mt-2" id="upcoming_events"></upcoming>
               </div>
             </div>
         </div>
@@ -29,6 +29,11 @@
         <li class="nav-item">
           <a href="#" class="nav-link fs-1 text-info" data-bs-toggle="modal" data-bs-target="#formularzModal" @click.prevent="clearAlert">
             <i class="bi bi-plus-circle"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#upcoming_events" class="nav-link fs-1 text-info" v-on:click="getEvents">
+            <i class="bi bi-arrow-repeat"></i>
           </a>
         </li>
       </ul>
@@ -79,9 +84,6 @@ import Upcoming from './components/upcoming_events.vue'
 import { mapActions, mapState } from 'vuex'
 
 
-
-
-
 export default {
   name: 'App',
   components: {
@@ -98,8 +100,14 @@ export default {
   },
 
   methods: {
-    ...mapActions('alert',{
-      clear: 'clear'
+    ...mapActions(
+      'alert',{
+        clear: 'clear'
+      },
+    ),
+
+    ...mapActions('calEvents', {
+      getEvents: 'getEvents'
     }),
 
     clearAlert(){
