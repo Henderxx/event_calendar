@@ -11,8 +11,14 @@
     <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" >Zaloguj</button>
     <small class="text-muted">Logując się wkraczasz na nieznane dotąd miejsca ...</small>
     <hr class="my-4">
-      <div v-if="alert.message" class="pt-5 bg-bg-bg-warning">
-          <p>{{alert.message}}</p>
+      <div v-if="alert.message" >
+        <div v-if="alert.type === 'success'" class="p-2 my-3 bg-success text-white rounded-3">
+          <p class="align-self-center">Zalogowano</p>
+        </div>
+        <div v-if="alert.type === 'error'" class="p-2 my-3 bg-danger text-white rounded-3">
+          <p class="align-self-center">Błąd podczas logowania</p>
+        </div>
+          
       </div>
   </form>
 </template>

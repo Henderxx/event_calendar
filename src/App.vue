@@ -81,6 +81,7 @@ import VueCal from './components/cal2.vue'
 import Login from './components/login.vue'
 import Form from './components/formularz.vue'
 import Upcoming from './components/upcoming_events.vue'
+import AdminPanel from './components/adminpanel.vue'
 import { mapActions, mapState } from 'vuex'
 
 
@@ -90,7 +91,9 @@ export default {
     'vue-cal': VueCal,
     'formularz': Form,
     'login': Login,
-    'upcoming': Upcoming
+    'upcoming': Upcoming,
+    // eslint-disable-next-line vue/no-unused-components
+    'adminPanel': AdminPanel
     
   },
   computed: {

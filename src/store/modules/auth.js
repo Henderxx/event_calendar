@@ -1,17 +1,22 @@
 import axios from 'axios'
 
 const state = {
-    login: '',
-    password: '',
-    user: ''
-    
+    user: '',
+    token: '',
+    role: ''
+
 }
 
 const mutations = {
-    storeUser(state, userData){
-        state.user = userData.user
+    // storeUser(state, userData){
+    //     state.user = userData.user
         
-    },
+    // },
+    authUser(state, userData) {
+        state.user = userData.user
+        state.token = userData.token
+        state.role = userData.role
+    }
 
 
 
@@ -26,12 +31,14 @@ const actions = {
             //const res = await axios.post('http://192.168.0.150:32402/api/login', authData)
             const res = await axios.post('http://136.243.156.120:32402/api/login', authData)
 
-
-            if(res.status === 200) {
-                commit('storeUser', {
-                    user: 'henio'
-                })
-            }
+            
+            commit('authUser', {
+                token: res.data.token})
+            // if(res.status === 200) {
+            //     commit('storeUser', {
+            //         user: 'henio'
+            //     })
+            // }
 
         } catch (error) {
             const errorMessage = (error.message && error.state) || error
