@@ -1,7 +1,7 @@
 <template>
-    <div>
-
-    </div>
+  <div>
+      error 404
+  </div>
 </template>
 
 <script>
@@ -10,7 +10,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-    //
-</style>>
+<style>
 
+</style>

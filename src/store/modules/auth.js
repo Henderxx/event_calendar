@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from '../../router'
 
 const state = {
     user: '',
@@ -39,6 +40,7 @@ const actions = {
             //         user: 'henio'
             //     })
             // }
+            router.replace('/adminpanel')
 
         } catch (error) {
             const errorMessage = (error.message && error.state) || error

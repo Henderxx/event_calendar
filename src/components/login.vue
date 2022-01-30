@@ -1,11 +1,11 @@
 <template>
   <form class="" @submit.prevent="onSubmit">
     <div class="form-floating mb-3">
-      <input type="text" class="form-control rounded-4 bg-dark text-white" id="floatingInput" placeholder="Login" v-model="loginUser">
+      <input type="text" class="form-control rounded-4 bg-dark text-white" id="floatingInput" placeholder="Login" v-model="loginUser" required>
       <label for="floatingInput">Login</label>
     </div>
     <div class="form-floating mb-3">
-      <input type="password" class="form-control rounded-4 bg-dark text-white" id="floatingPassword" placeholder="Hasło" v-model="password">
+      <input type="password" class="form-control rounded-4 bg-dark text-white" id="floatingPassword" placeholder="Hasło" v-model="password" required>
       <label for="floatingPassword">Hasło</label>
     </div>
     <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" >Zaloguj</button>

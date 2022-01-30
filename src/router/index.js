@@ -4,25 +4,27 @@ import store from '../store'
 
 Vue.use(VueRouter)
 
-import App from '../App.vue'
-import AdminPanel from '../components/adminpanel.vue'
-import Login from '../components/login.vue'
+
+import confirmEvents from '../components/confirmEvents.vue'
+import homePanel from '../views/homepanel.vue'
+import Error404 from '../views/Error404.vue'
 
 const routes = [
     {
         path: '/',
         name: 'Home',
-        component: App
-    },{
-        path: '/login',
-        name: 'Login',
-        component: Login
+        component: homePanel
     },
     {
         path: '/adminpanel',
         name: 'Adminpanel',
-        component: AdminPanel
-    }
+        component: confirmEvents
+    },
+    {
+      path: "*",
+      name: 'Error404',
+      component: Error404
+  }
 ]
 
 const router = new VueRouter({
@@ -33,7 +35,7 @@ const router = new VueRouter({
 
   router.beforeEach((to, from, next) => {
     // redirect to login page if not logged in and trying to access a restricted page
-    const publicPages = ['/', '/login']
+    const publicPages = ['/', '/adminpanel']
     const authRequired = !publicPages.includes(to.path)
     let loggedIn = store.state.auth.token
   
@@ -44,7 +46,7 @@ const router = new VueRouter({
     // }
   
     if (authRequired && !loggedIn) {
-      return next('/login')
+      return next('/')
     }
   
     next()
