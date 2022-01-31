@@ -21,7 +21,7 @@ const routes = [
         component: confirmEvents
     },
     {
-      path: "*",
+      path: '*',
       name: 'Error404',
       component: Error404
   }

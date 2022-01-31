@@ -2,26 +2,35 @@
 <div>
         <div class="sidepanel">
             <div class="triangle-bottomright"></div>
-            <ul class="nav flex-column">
-                <li class="active">
+            <ul class="nav justify-content-center">
+                <li class="nav-item ">
+                  <router-link to="/" class="fs-1 text-info" data-bs-toggle="tooltip" data-bs-placement="left" title="Home"><i class="bi bi-house"></i></router-link>
+                </li>
+                <li class="nav-item ">
                   <span data-bs-toggle="modal" data-bs-target="#logInModal">
-                    <a href="#" class=" fs-1 text-info" data-bs-toggle="tooltip" data-bs-placement="left" title="Login" @click.prevent="clearAlert">
+                    <a href="#" class=" fs-1 text-info" data-bs-toggle="tooltip" data-bs-placement="left" title="Login to admin panel" @click.prevent="clearAlert">
                     <i class="bi bi-person-square"></i>
                     </a>
                   </span>
                 </li>
-                <li>
-                    <router-link to="/adminpanel" class="nav-link fs-1 text-info"><i class="bi bi-plus-circle"></i></router-link>
+                <li class="nav-item">
+                    <router-link to="/adminpanel" class=" fs-1 text-info" data-bs-toggle="tooltip" data-bs-placement="left" title="Zatwierdzanie wydarzeń"><i class="bi bi-calendar-check"></i></router-link>
                 </li>
-                <li>
-                    <a href="#" class=" fs-1 text-info" data-bs-toggle="modal" data-bs-target="#formularzModal" @click.prevent="clearAlert">
+                <li class="nav-item">
+                  <span data-bs-toggle="modal" data-bs-target="#formularzModal" @click.prevent="clearAlert">
+                    <a href="#" class=" fs-1 text-info" data-bs-toggle="tooltip" data-bs-placement="left" title="Dodawanie wydarzeń">
                     <i class="bi bi-plus-circle"></i>
                     </a>
+                  </span>
+                    
                 </li>
-                <li>
-                    <a href="#upcoming_events" class="nav-link fs-1 text-info" v-on:click="getEvents">
+                <li class="nav-item">
+                  <span v-on:click="getEvents" data-bs-toggle="tooltip" data-bs-placement="left" title="Odśwież listę wydarzeń"  class="fs-1 text-info">
+                    <!-- <router-link to="/" ></router-link> -->
                     <i class="bi bi-arrow-repeat"></i>
-                    </a>
+                  </span>
+                  
+                    
                 </li>
             </ul>
             <div class="triangle-topright"></div>
@@ -61,58 +70,32 @@
             </div>
         </div>
 
-        <!-- <div class="d-flex flex-column flex-shrink-0 bg-light" style="width: 4.5rem;">
-    <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
-      <li class="nav-item">
-        <a href="#" class="nav-link active py-3 border-bottom" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
-            <i class="bi bi-house"></i>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link py-3 border-bottom" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
-          <svg class="bi" width="24" height="24" role="img" aria-label="Dashboard"><use xlink:href="#speedometer2"/></svg>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link py-3 border-bottom" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
-          <svg class="bi" width="24" height="24" role="img" aria-label="Orders"><use xlink:href="#table"/></svg>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link py-3 border-bottom" title="Products" data-bs-toggle="tooltip" data-bs-placement="right">
-          <svg class="bi" width="24" height="24" role="img" aria-label="Products"><use xlink:href="#grid"/></svg>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link py-3 border-bottom" title="Customers" data-bs-toggle="tooltip" data-bs-placement="right">
-          <svg class="bi" width="24" height="24" role="img" aria-label="Customers"><use xlink:href="#people-circle"/></svg>
-        </a>
-      </li>
-    </ul>
-    <div class="dropdown border-top">
-    </div>
-</div> -->
-
 </div>
-    
-
-
-
-
-
-
 
 </template>
 
 <script>
 import Login from './login.vue'
 import Form from './addEvents.vue'
+import { mapActions } from 'vuex'
 
 export default {
      components: {
     'formularz': Form,
     'login': Login,
-     }
+     },
+     methods: {
+       ...mapActions('alert', {
+         clear: 'clear'
+       }),
+       ...mapActions('calEvents', {
+         getEvents: 'getEvents'
+       }),
+
+       clearAlert(){
+         this.clear()
+       }
+     },
 }
 </script>
 

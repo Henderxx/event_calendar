@@ -3,7 +3,7 @@
       <!-- <div class="my-5 py-5 text-center">
           <button class="btn btn-dark me-5" v-on:click="getEvents">Weż zdarzenia</button>
       </div> -->
-      <table class="table table-dark table-striped">
+      <table class="table table-dark table-striped table-hover">
           <thead class="table-light">
           <tr>
               <th>id</th>

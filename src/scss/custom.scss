@@ -44,21 +44,13 @@ body {
     height: fit-content;
     overflow: hidden;
     
-    .navbar-nav {
+    .nav {
       background-color: #0dcaf00f;
+
+      i.bi-arrow-repeat{
+        cursor: pointer
+      }
     }
-    // padding-top: 20px;
-    ul>li>a{
-      padding-right: 1rem;
-    }
-    // ul {
-    //   li {
-    //     i{
-    //       width: 50px;
-    //       height: 50px;
-    //     }
-    //   }
-    // }
 
     .triangle-bottomright {
       width: 0;
@@ -145,3 +137,5 @@ color: #bdbdbd;
   // .vuecal__cells.month-view .vuecal__cell, .vuecal__cells.week-view .vuecal__cell {
   //   color: #bdbdbd;
   // }
+
+  
