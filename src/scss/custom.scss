@@ -42,7 +42,18 @@ body {
     z-index: 1;
     width: 55px;
     height: fit-content;
-    overflow: hidden;
+    // overflow: hidden;
+
+
+    li {
+      transition: transform 500ms;
+    }
+    li:hover {
+      position: relative;
+      transform: translateX(-15px);
+      z-index: 10;
+
+    }
     
     .nav {
       background-color: #0dcaf00f;

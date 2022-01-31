@@ -4,16 +4,23 @@
             <div class="triangle-bottomright"></div>
             <ul class="nav justify-content-center">
                 <li class="nav-item ">
-                  <router-link to="/" class="fs-1 text-info" data-bs-toggle="tooltip" data-bs-placement="left" title="Home"><i class="bi bi-house"></i></router-link>
+                  <router-link to="/" class="fs-1 text-info" data-bs-toggle="tooltip" data-bs-placement="left" title="Główna"><i class="bi bi-house"></i></router-link>
                 </li>
                 <li class="nav-item ">
-                  <span data-bs-toggle="modal" data-bs-target="#logInModal">
-                    <a href="#" class=" fs-1 text-info" data-bs-toggle="tooltip" data-bs-placement="left" title="Login to admin panel" @click.prevent="clearAlert">
+                  <div v-if="!auth">
+                    <span data-bs-toggle="modal" data-bs-target="#logInModal">
+                    <a href="#" class=" fs-1 text-info" data-bs-toggle="tooltip" data-bs-placement="left" title="Administracja" @click.prevent="clearAlert">
                     <i class="bi bi-person-square"></i>
                     </a>
+                    </span>
+                  </div>
+                  <div v-if="auth">
+                    <span v-on:click="onLogout" data-bs-toggle="tooltip" data-bs-placement="left" title="Wyloguj" class="fs-1 text-info">
+                    <i class="bi bi-arrow-bar-right"></i>
                   </span>
+                  </div>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" v-if="auth">
                     <router-link to="/adminpanel" class=" fs-1 text-info" data-bs-toggle="tooltip" data-bs-placement="left" title="Zatwierdzanie wydarzeń"><i class="bi bi-calendar-check"></i></router-link>
                 </li>
                 <li class="nav-item">
@@ -77,7 +84,7 @@
 <script>
 import Login from './login.vue'
 import Form from './addEvents.vue'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
      components: {
@@ -85,17 +92,30 @@ export default {
     'login': Login,
      },
      methods: {
-       ...mapActions('alert', {
-         clear: 'clear'
-       }),
-       ...mapActions('calEvents', {
-         getEvents: 'getEvents'
-       }),
+      ...mapActions('alert', {
+        clear: 'clear'
+      }),
+      ...mapActions('calEvents', {
+        getEvents: 'getEvents'
+      }),
+      ...mapActions('auth', {
+        logout: 'logout'
+      }),
 
-       clearAlert(){
-         this.clear()
-       }
-     },
+      onLogout(){
+        this.logout()
+      },
+
+      clearAlert(){
+        this.clear()
+      },
+    },
+
+     computed: {
+       ...mapGetters('auth', {
+         auth: 'isAuthenticated'
+       })
+     }
 }
 </script>
 

@@ -17,6 +17,7 @@
         </div>
         <div v-if="alert.type === 'error'" class="p-2 my-3 bg-danger text-white rounded-3">
           <p class="align-self-center">Błąd podczas logowania</p>
+          <p class="align-self-center text-white-50 small">może zły login lub hasło ?</p>
         </div>
           
       </div>
@@ -57,6 +58,9 @@ export default {
       //   haslo: this.password
       // }
       this.login(form)
+
+      this.loginUser = '',
+      this.password = ''
     }
   },
 
