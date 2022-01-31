@@ -25,22 +25,21 @@ const mutations = {
 }
 
 const actions = {
-    setLogoutTimer({dispatch}, expirationTime){
+    setLogoutTimer({dispatch}, expirationTime) {
         const now = Date.now()
-        setTimeout(()=> {
-            dispatch('logout'), expirationTime * 1000 - now
-        })
+        setTimeout(() => {
+            dispatch('logout')
+        }, expirationTime * 1000 - now)
     },
 
     async login({commit, dispatch}, authData){
-
         try {
             //const res = await axios.post('http://192.168.0.150:32402/api/login', authData)
             const res = await axios.post('http://136.243.156.120:32402/api/login', authData)
             if(res.status === 200) {
                 dispatch('alert/success', res.statusText, { root: true })
                 const token = res.data.token
-                const userObj = JSON.parse(atob(token.split('.')[1]))
+                const userObj = JSON.parse(Buffer.from((token.split('.')[1]), 'base64'))
                 const user = userObj.user
                 const userRole = userObj.role
                 const userExpiry = new Date(userObj.exp * 1000)
@@ -67,11 +66,11 @@ const actions = {
         }
     },
 
-    logout({commit}){
+    logout({commit, dispatch}){
         commit('clearUser')
-        commit('alert/clear', {root: true})
+        dispatch('alert/clear', null, { root: true })
         localStorage.clear()
-        router.replace('/')
+        //router.replace('/')
     }
 
 

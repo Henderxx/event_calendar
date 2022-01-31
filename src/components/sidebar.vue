@@ -15,7 +15,7 @@
                     </span>
                   </div>
                   <div v-if="auth">
-                    <span v-on:click="onLogout" data-bs-toggle="tooltip" data-bs-placement="left" title="Wyloguj" class="fs-1 text-info">
+                    <span v-on:click.once="onLogout" data-bs-toggle="tooltip" data-bs-placement="left" title="Wyloguj" class="fs-1 text-info">
                     <i class="bi bi-arrow-bar-right"></i>
                   </span>
                   </div>
