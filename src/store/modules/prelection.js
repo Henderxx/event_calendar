@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const state = {
+    pendingLectures: []
     // eventName: '',
     // eventCreator: '',
     // eventDescription: '',
@@ -11,6 +12,28 @@ const state = {
 }
 
 const mutations = {
+    addPendingLectures(state, data){
+        state.pendingLectures = []
+
+        for(const item of data){
+            const pendingItem = {}
+            const startDate = new Date(item.eventstartdate)
+            const stopDate = new Date(item.eventstopdate)
+            pendingItem.id = item.id
+            pendingItem.startDate = startDate
+            pendingItem.stopDate = stopDate
+            pendingItem.name = item.eventname
+            pendingItem.author = item.eventpersoncreator
+            if(item.descr === null){
+                pendingItem.description = ''
+            } else {
+                pendingItem.description = item.descr
+            }
+
+            state.pendingLectures.push(pendingItem)
+        }
+        
+    }
 
 }
 
@@ -24,29 +47,47 @@ async addLecture({dispatch}, eventData){
             dispatch('alert/success', req.statusText, {root: true})
         }
     } catch (error) {
-
         const errorMessage = (error.response.data && error.response.data.message) || error
             dispatch('alert/error', errorMessage, { root: true })
     }
 },
-async approveLecture(selectedLecture) {
-    const res = await axios.post('http://136.243.156.120:32402/api/approve', selectedLecture.id)
+
+async approveLecture({dispatch},selectedLecture) {
+    const token = localStorage.getItem('token')
+    const lectureToSend = {id: `${selectedLecture}`}
+    try {
+        console.log(`sel lecture id: ${selectedLecture}`);
+        const res = await axios.post('http://136.243.156.120:32402/api/approve', JSON.stringify(lectureToSend), { headers: {'Authorization': token} })
     if (res.status === 200){
         console.log('ok');
     }
+    } catch (error) {
+        const errorMessage = (error.response.data && error.response.data.message) || error
+            dispatch('alert/error', errorMessage, { root: true })
+    }
 },
+
 async delLecture(){
 
 },
 
-async getLecturesToApprove(){
-    
+async getLecturesToApprove({commit, dispatch}){
+    const token = localStorage.getItem('token')
+    try {
+        const res = await axios.get('http://136.243.156.120:32402/api/approve', { headers: {'Authorization': token} })
+        commit('addPendingLectures', res.data)
+    } catch (error) {
+        const errorMessage = (error.response.data && error.response.data.message) || error
+            dispatch('alert/error', errorMessage, { root: true })
+    }
 }
     
 }
 
 const getters = {
-
+    pendingLecturesGetter(state){
+        return state.pendingLectures
+    }
 }
 
 export default {

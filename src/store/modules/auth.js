@@ -41,11 +41,12 @@ const actions = {
                 const token = res.data.token
                 const userObj = JSON.parse(Buffer.from((token.split('.')[1]), 'base64'))
                 const user = userObj.user
-                const userRole = userObj.role
+                const userRole = res.data.role
                 const userExpiry = new Date(userObj.exp * 1000)
     
                 localStorage.setItem('token', token)
                 localStorage.setItem('user', user)
+                localStorage.setItem('userId', res.data.id)
                 localStorage.setItem('expirationDate', userExpiry)
     
                 commit('storeUser',{
@@ -70,7 +71,26 @@ const actions = {
         commit('clearUser')
         dispatch('alert/clear', null, { root: true })
         localStorage.clear()
-        //router.replace('/')
+        router.replace('/')
+    },
+
+    tryAutoLogin({ commit }){
+        const token = localStorage.getItem('token')
+        const userId = localStorage.getItem('userId')
+        if(!token) {
+            return
+        }
+        const expirationDate = new Date(localStorage.getItem('expirationDate'))
+        const now = new Date()
+        if(now >= expirationDate){
+            localStorage.clear()
+            return
+        }
+        commit('authUser', {
+            token: token,
+            userId: userId
+        })
+
     }
 
 

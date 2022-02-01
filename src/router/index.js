@@ -40,10 +40,10 @@ const router = new VueRouter({
     let loggedIn = store.state.auth.token
   
     // after page refresh store data is lost, try auto login
-    // if (!loggedIn) {
-    //   store.dispatch('auth/tryAutoLogin')
-    //   loggedIn = store.state.auth.idToken
-    // }
+    if (!loggedIn) {
+      store.dispatch('auth/tryAutoLogin')
+      loggedIn = store.state.auth.token
+    }
   
     if (authRequired && !loggedIn) {
       return next('/')

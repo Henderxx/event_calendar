@@ -14,6 +14,9 @@ export default {
   name: 'App',
   components: {
     sidebar
+  },
+  created() {
+    this.$store.dispatch('auth/tryAutoLogin')
   }
 }
 </script>
