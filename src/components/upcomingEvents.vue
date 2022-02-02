@@ -12,16 +12,18 @@
               <th>Nazwa prelekcji</th>
               <th>Prowadzacy</th>
               <th>Opis</th>
+              <th v-if="auth">Akcje</th>
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(ev,index) of _eventsGetter" :key="index">
-              <td>{{index + 1}}</td>
+          <tr v-for="(ev) of _eventsGetter" :key="ev.id">
+              <td>{{ev.id}}</td>
               <td>{{ev.eventstartdate}}</td>
               <td>{{ev.eventstopdate}}</td>
               <td>{{ev.eventname}}</td>
               <td>{{ev.eventpersoncreator}}</td>
               <td>{{ev.descr}}</td>
+              <td v-if="auth"><button class="btn btn-danger" v-on:click="delApprovedLecture(ev.id)">Usuń</button></td>
           </tr>
           </tbody>
       </table>
@@ -40,13 +42,20 @@ export default {
 
         ...mapGetters('calEvents', {
             _eventsGetter: 'eventsGetter'
-        })
+        }),
+
+        ...mapGetters('auth', {
+         auth: 'isAuthenticated'
+       })
     },
 
     methods: {
         ...mapActions('calEvents', {
             getEvents: 'getEvents'
         }),
+        ...mapActions('prelection',{
+            delApprovedLecture: 'delApprovedLecture'
+        })
     },
 
     mounted() {

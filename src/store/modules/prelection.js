@@ -59,8 +59,12 @@ async approveLecture({dispatch},selectedLecture) {
         //console.log(`sel lecture id: ${selectedLecture}`);
         const res = await axios.post('http://136.243.156.120:32402/api/approve', lectureToSend, { headers: {'Authorization': token, 'Content-Type': 'application/json'} })
     if (res.status === 200){
-        console.log('ok');
+        //console.log('ok');
         dispatch('getLecturesToApprove')
+        dispatch('calEvents/getEvents',res.status,{root:true})
+    }
+    if(res.status === 403){
+        dispatch('auth/logout')
     }
     } catch (error) {
         const errorMessage = (error.response.data && error.response.data.message) || error
@@ -74,12 +78,33 @@ async delLecture({dispatch}, selectedLecture){
     // eslint-disable-next-line no-unused-vars
     const lectureToSend = {id: `${selectedLecture}`}
     try {
-        console.log(`sel lecture id: ${selectedLecture}`);
-        console.log(token);
-        const res = await axios.delete('http://136.243.156.120:32402/api/approve', { headers: {'Authorization': token, 'Content-Type': 'application/json'} })
+        const res = await axios.delete('http://136.243.156.120:32402/api/approve', { headers: {'Authorization': token, 'Content-Type': 'application/json'}, data: lectureToSend })
     if (res.status === 200){
-        console.log('ok');
+        //console.log('ok');
         dispatch('getLecturesToApprove')
+        dispatch('calEvents/getEvents',res.status,{root:true})
+    }
+    if(res.status === 403){
+        dispatch('auth/logout')
+    }
+    } catch (error) {
+        const errorMessage = (error.response.data && error.response.data.message) || error
+            dispatch('alert/error', errorMessage, { root: true })
+            console.log(JSON.parse(error));
+    }
+},
+
+async delApprovedLecture({dispatch}, selectedLecture){
+    const token = localStorage.getItem('token')
+    // eslint-disable-next-line no-unused-vars
+    const lectureToSend = {id: `${selectedLecture}`}
+    try {
+        const res = await axios.delete('http://136.243.156.120:32402/api/remove', { headers: {'Authorization': token, 'Content-Type': 'application/json'}, data: lectureToSend })
+    if (res.status === 200){
+        dispatch('calEvents/getEvents',res.status,{root:true})
+    }
+    if(res.status === 403){
+        dispatch('auth/logout')
     }
     } catch (error) {
         const errorMessage = (error.response.data && error.response.data.message) || error
@@ -93,9 +118,13 @@ async getLecturesToApprove({commit, dispatch}){
     try {
         const res = await axios.get('http://136.243.156.120:32402/api/approve', { headers: {'Authorization': token} })
         commit('addPendingLectures', res.data)
+        if(res.status === 403){
+            dispatch('auth/logout')
+        }
     } catch (error) {
         const errorMessage = (error.response.data && error.response.data.message) || error
             dispatch('alert/error', errorMessage, { root: true })
+            console.log(JSON.parse(error));
     }
 }
     

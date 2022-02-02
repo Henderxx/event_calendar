@@ -58,6 +58,7 @@ const actions = {
             //const res = await axios.get('http://192.168.0.150:32402/api/list')
             commit('saveEvents',res.data )
             commit('addCalendarEvents', res.data)
+            console.log('get ok');
         } catch (error) {
             const errorMessage = (error.message && error.state) || error
             dispatch('alert/error', errorMessage, { root: true })
