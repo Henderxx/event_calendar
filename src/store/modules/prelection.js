@@ -56,19 +56,36 @@ async approveLecture({dispatch},selectedLecture) {
     const token = localStorage.getItem('token')
     const lectureToSend = {id: `${selectedLecture}`}
     try {
-        console.log(`sel lecture id: ${selectedLecture}`);
-        const res = await axios.post('http://136.243.156.120:32402/api/approve', JSON.stringify(lectureToSend), { headers: {'Authorization': token} })
+        //console.log(`sel lecture id: ${selectedLecture}`);
+        const res = await axios.post('http://136.243.156.120:32402/api/approve', lectureToSend, { headers: {'Authorization': token, 'Content-Type': 'application/json'} })
     if (res.status === 200){
         console.log('ok');
+        dispatch('getLecturesToApprove')
     }
     } catch (error) {
         const errorMessage = (error.response.data && error.response.data.message) || error
             dispatch('alert/error', errorMessage, { root: true })
+            console.log(JSON.parse(error));
     }
 },
 
-async delLecture(){
-
+async delLecture({dispatch}, selectedLecture){
+    const token = localStorage.getItem('token')
+    // eslint-disable-next-line no-unused-vars
+    const lectureToSend = {id: `${selectedLecture}`}
+    try {
+        console.log(`sel lecture id: ${selectedLecture}`);
+        console.log(token);
+        const res = await axios.delete('http://136.243.156.120:32402/api/approve', { headers: {'Authorization': token, 'Content-Type': 'application/json'} })
+    if (res.status === 200){
+        console.log('ok');
+        dispatch('getLecturesToApprove')
+    }
+    } catch (error) {
+        const errorMessage = (error.response.data && error.response.data.message) || error
+            dispatch('alert/error', errorMessage, { root: true })
+            console.log(JSON.parse(error));
+    }
 },
 
 async getLecturesToApprove({commit, dispatch}){
@@ -98,29 +115,3 @@ export default {
     getters
 }
 
-
-// [
-// 	{
-// 		"descr": "granie z przegrywami",
-// 		"eventname": "test1",
-// 		"eventpersoncreator": "test2",
-// 		"eventstartdate": "Sun, 24 Jan 2021 23:00:00 GMT",
-// 		"eventstopdate": "Mon, 25 Jan 2021 11:40:00 GMT",
-// 		"id": 8
-// 	},
-// 	{
-// 		"descr": "testtest123",
-// 		"eventname": "123",
-// 		"eventpersoncreator": "123",
-// 		"eventstartdate": "Thu, 31 Dec 2020 23:00:00 GMT",
-// 		"eventstopdate": "Fri, 01 Jan 2021 14:29:00 GMT",
-// 		"id": 10
-// 	},
-// 	{
-// 		"descr": "opissssssss",
-// 		"eventname": "testowy event",
-// 		"eventpersoncreator": "Henioo",
-// 		"eventstartdate": "Tue, 25 Jan 2022 23:00:00 GMT",
-// 		"eventstopdate": "Sun, 30 Jan 2022 12:59:53 GMT",
-// 		"id": 11
-// 	}
