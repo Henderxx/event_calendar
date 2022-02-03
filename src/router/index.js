@@ -38,6 +38,15 @@ const router = new VueRouter({
     const publicPages = ['/']
     const authRequired = !publicPages.includes(to.path)
     let loggedIn = store.state.auth.token
+    let modal = document.querySelector('.modal')
+      if(modal){
+        let modalBack = document.querySelector('.modal-backdrop')
+        if(modalBack){
+          modalBack.remove()
+          modal.remove()
+        }
+        
+      }
   
     // after page refresh store data is lost, try auto login
     if (!loggedIn) {
