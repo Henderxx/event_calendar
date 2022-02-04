@@ -42,7 +42,7 @@ const actions = {
 async addLecture({dispatch}, eventData){
     try {
         const req = await axios.post('http://136.243.156.120:32402/api/eventadd', eventData)
-        //const req = await axios.post('http://192.168.0.150:32402/api/eventadd', eventData)
+        //const req = await axios.post('http://136.243.156.120:32402/api/eventadd', eventData)
         if (req.status === 200) {
             dispatch('alert/success', req.statusText, {root: true})
         }

@@ -12,17 +12,19 @@
               <th>Nazwa prelekcji</th>
               <th>Prowadzacy</th>
               <th>Opis</th>
+              <th>Status</th>
               <th v-if="auth">Akcje</th>
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(ev) of _eventsGetter" :key="ev.id">
-              <td>{{ev.id}}</td>
+          <tr v-for="(ev,index) of _eventsGetter" :key="index"  class="align-middle">
+              <td>{{index + 1}}</td>
               <td>{{ev.eventstartdate}}</td>
               <td>{{ev.eventstopdate}}</td>
               <td>{{ev.eventname}}</td>
               <td>{{ev.eventpersoncreator}}</td>
               <td>{{ev.descr}}</td>
+              <td><span v-if="!ev.approved" class="badge bg-warning text-black fs-6">Oczekujące</span><span v-else class="badge bg-success fs-6">Zatwierdzone</span></td>
               <td v-if="auth"><button class="btn btn-danger" v-on:click="delApprovedLecture(ev.id)">Usuń</button></td>
           </tr>
           </tbody>
