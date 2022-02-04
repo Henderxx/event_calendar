@@ -22,6 +22,7 @@ const mutations = {
     addCalendarEvents(state, data) {
         state.calendarEvents = []
         for(const item of data ) {
+            if(!item.approved) continue
             const newItem = {}
             const isoDateStart = new Date(item.eventstartdate)
             const isoDateStop = new Date(item.eventstopdate)

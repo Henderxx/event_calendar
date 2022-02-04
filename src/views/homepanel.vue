@@ -1,7 +1,7 @@
 <template>
   <div class="">
-      <div class="bg-dark py-5 text-center">
-            <div class="py-5">
+      <div class="bg-dark py-2 text-center">
+            <div class="py-3">
               <div class="col-lg-8 mx-auto">
               <h1 class="display-5 fw-bold text-white mb-4 pb-3"> Witaj w Kalendarzu Karczmy</h1>
                 <vue-cal class="mt-4"></vue-cal>
@@ -9,8 +9,8 @@
             </div>
         </div>
 
-        <div class="px-4 py-5 text-center">
-            <div class="py-5">
+        <div class="px-4 py-2 text-center">
+            <div class="py-3">
               <div class="col-lg-8 mx-auto">
               <h1 class="display-5 fw-bold text-white mb-4 pb-3"> Nadchodzące wydarzenia</h1>
                 <upcoming class="mt-2" id="upcoming_events"></upcoming>
