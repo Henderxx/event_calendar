@@ -15,7 +15,7 @@
   <div class="mb-3 pb-3 row ">
     <div class="col">
         <label for="startDate" class="form-label">Data rozpoczęcia</label>
-          <v-date-picker v-model="startDate" mode="dateTime" is24hr :model-config="modelConfig" :min-date="new Date()" >
+          <v-date-picker v-model="startDate" mode="dateTime" is24hr :model-config="modelConfig" :min-date="new Date()" :minute-increment="10">
             <template v-slot="{ inputValue, inputEvents }">
               <input required id="startDate"
                 class="px-2 py-1 border rounded focus:outline-none focus:border-blue-300 bg-dark text-white"
@@ -24,10 +24,11 @@
               />
             </template>
           </v-date-picker>
+          {{startDate}}
     </div>
     <div class="col">
         <label for="endDate" class="form-label">Data zakończenia</label>
-          <v-date-picker v-model="endDate" mode="dateTime" is24hr :model-config="modelConfig" :min-date="new Date()" >
+          <v-date-picker v-model="endDate" mode="dateTime" is24hr :model-config="modelConfig" :min-date="new Date()" :minute-increment="10">
             <template v-slot="{ inputValue, inputEvents }">
               <input required id="endDate"
                 class="px-2 py-1 border rounded focus:outline-none focus:border-blue-300 bg-dark text-white"
@@ -36,6 +37,7 @@
               />
             </template>
           </v-date-picker>
+          {{endDate}}
     </div>
   </div>
       <div v-if="alert.message" >
@@ -69,7 +71,7 @@ data(){
 
       modelConfig: {
         type: 'string',
-        mask: 'iso'
+        mask: 'YYYY-MM-DD HH:mm'
       }
   }
 },

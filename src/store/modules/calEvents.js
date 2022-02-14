@@ -1,4 +1,5 @@
 import axios from "axios";
+import { base_path } from "../../config/config";
 
 const state = {
 _events: '',
@@ -46,16 +47,11 @@ const mutations = {
     }
 }
 
-// descr:null
-// eventname:"test3"
-// eventpersoncreator:"Damian"
-// eventstartdate:"Fri, 31 Dec 2021 23:00:00 GMT"
-// eventstopdate:null
 
 const actions = {
     async getEvents({commit, dispatch}) {
         try {
-            const res = await axios.get('http://136.243.156.120:32402/api/list')
+            const res = await axios.get(base_path + '/list')
             //const res = await axios.get('http://192.168.0.150:32402/api/list')
             commit('saveEvents',res.data )
             commit('addCalendarEvents', res.data)

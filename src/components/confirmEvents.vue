@@ -11,9 +11,6 @@
                 <th>Opis</th>
                 <th>Akcje</th>
             </thead>
-            <div v-if="!pendingLecturesGetter.length" class="bg-info text-center">
-                nie ma żadnych eventów do zatwierdzenia
-            </div>
             <tbody v-if="pendingLecturesGetter.length" class="align-middle">
                 <tr v-for="(pendingLecture) of pendingLecturesGetter" :key="pendingLecture.id">
                     <td>{{pendingLecture.id}}</td>
@@ -30,6 +27,9 @@
                 
             </tbody>
         </table>
+            <div v-if="!pendingLecturesGetter.length" class="bg-warning text-center text-black mb-3 rounded-1 py-2">
+                nie ma żadnych eventów do zatwierdzenia
+            </div>
     <button class=" w-100 btn btn-outline-info" v-on:click="getLecturesToApprove">pobierz zdarzenia</button>
 
     <h2 class="fw-bold text-white my-4 py-3"> Podgląd wszystkich zdarzeń</h2>
