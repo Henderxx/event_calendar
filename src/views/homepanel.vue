@@ -45,10 +45,6 @@ computed: {
       },
     ),
 
-    ...mapActions('calEvents', {
-      getEvents: 'getEvents'
-    }),
-
     clearAlert(){
       this.clear()
     }

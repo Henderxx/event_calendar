@@ -9,6 +9,10 @@
     <input type="text" class="form-control text-center bg-dark text-white" v-model="eventCreator" id="eventCreator" required>
   </div>
   <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control text-center bg-dark text-white" v-model="email" id="email">
+  </div>
+  <div class="mb-3">
     <label for="eventDescription" class="form-label">Opis wydarzenia</label>
     <textarea rows="3" class="form-control bg-dark text-white" v-model="eventDescription" id="eventDescription"></textarea>
   </div>
@@ -24,6 +28,7 @@
               />
             </template>
           </v-date-picker>
+          {{startDate}}
     </div>
     <div class="col">
         <label for="endDate" class="form-label">Data zakończenia</label>
@@ -36,6 +41,7 @@
               />
             </template>
           </v-date-picker>
+          {{endDate}}
     </div>
   </div>
       <div v-if="alert.message" >
@@ -66,10 +72,11 @@ data(){
       eventName: '',
       eventCreator: '',
       eventDescription: '',
+      email: '',
 
       modelConfig: {
         type: 'string',
-        mask: 'iso'
+        mask: 'YYYY-MM-DD HH:mm'
       }
   }
 },
@@ -82,7 +89,7 @@ computed: {
 
 methods: {
   ...mapActions('prelection', {
-    addLecture: 'addLecture'
+    addPrelection: 'addPrelection'
   }),
 
   onSubmit(){
@@ -93,14 +100,16 @@ methods: {
     formEvent.append('eventpersoncreator', this.eventCreator)
     formEvent.append('eventstartdate', this.startDate)
     formEvent.append('eventstopdate', this.endDate)
+    formEvent.append('email', this.email)
 
-    this.addLecture(formEvent)
+    this.addPrelection(formEvent)
     
     this.eventDescription = '',
     this.eventName = '',
     this.eventCreator = '',
     this.startDate = '',
-    this.endDate = ''
+    this.endDate = '',
+    this.email = ''
   },
 
 }

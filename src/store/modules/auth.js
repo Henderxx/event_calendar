@@ -1,5 +1,7 @@
 import axios from 'axios'
 import router from '../../router'
+import { base_path } from '../../config/config'
+
 
 const state = {
     token: null,
@@ -35,7 +37,7 @@ const actions = {
     async login({commit, dispatch}, authData){
         try {
             //const res = await axios.post('http://192.168.0.150:32402/api/login', authData)
-            const res = await axios.post('http://136.243.156.120:32402/api/login', authData)
+            const res = await axios.post(base_path + '/login', authData)
             if(res.status === 200) {
                 dispatch('alert/success', res.statusText, { root: true })
                 const token = res.data.token

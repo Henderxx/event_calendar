@@ -32,7 +32,7 @@
                     
                 </li>
                 <li class="nav-item">
-                  <span v-on:click="getEvents" data-bs-toggle="tooltip" data-bs-placement="left" title="Odśwież listę wydarzeń"  class="fs-1 text-info">
+                  <span v-on:click="getPrelections" data-bs-toggle="tooltip" data-bs-placement="left" title="Odśwież listę wydarzeń"  class="fs-1 text-info">
                     <!-- <router-link to="/" ></router-link> -->
                     <i class="bi bi-arrow-repeat"></i>
                   </span>
@@ -95,8 +95,8 @@ export default {
       ...mapActions('alert', {
         clear: 'clear'
       }),
-      ...mapActions('calEvents', {
-        getEvents: 'getEvents'
+      ...mapActions('prelection', {
+        getPrelections: 'getPrelections'
       }),
       ...mapActions('auth', {
         logout: 'logout'
