@@ -11,26 +11,27 @@
                 <th>Opis</th>
                 <th>Akcje</th>
             </thead>
-            <tbody v-if="pendingLecturesGetter.length" class="align-middle">
-                <tr v-for="(pendingLecture) of pendingLecturesGetter" :key="pendingLecture.id">
-                    <td>{{pendingLecture.id}}</td>
-                    <td>{{pendingLecture.startDate}}</td>
-                    <td>{{pendingLecture.stopDate}}</td>
-                    <td>{{pendingLecture.name}}</td>
-                    <td>{{pendingLecture.author}}</td>
-                    <td>{{pendingLecture.description}}</td>
-                    <td>
-                        <button class="btn btn-success" v-on:click="approveLecture(pendingLecture.id)">Zatwierdź</button>
-                        <!-- <button class="btn btn-danger" v-on:click="delLecture(pendingLecture.id)">Usuń</button> -->
-                    </td>
+            <tbody v-if="prelections.length" class="align-middle">
+                <tr v-for="(pendingPrelection, index) of prelections" :key="pendingPrelection.id">
+                    <template v-if="!pendingPrelection.approved">
+                        <td>{{index + 1 }}</td>
+                        <td>{{pendingPrelection.startDate}}</td>
+                        <td>{{pendingPrelection.stopDate}}</td>
+                        <td>{{pendingPrelection.name}}</td>
+                        <td>{{pendingPrelection.author}}</td>
+                        <td>{{pendingPrelection.description}}</td>
+                        <td>
+                            <button class="btn btn-success" v-on:click="approvePrelection(pendingPrelection.id)">Zatwierdź</button>
+                            <!-- <button class="btn btn-danger" v-on:click="delPrelection(pendingPrelection.id)">Usuń</button> -->
+                        </td>
+                    </template>
                 </tr>
-                
             </tbody>
         </table>
-            <div v-if="!pendingLecturesGetter.length" class="bg-warning text-center text-black mb-3 rounded-1 py-2">
+            <div v-if="!prelections.length" class="bg-warning text-center text-black mb-3 rounded-1 py-2">
                 nie ma żadnych eventów do zatwierdzenia
             </div>
-    <button class=" w-100 btn btn-outline-info" v-on:click="getLecturesToApprove">pobierz zdarzenia</button>
+    <button class=" w-100 btn btn-outline-info" v-on:click="getPrelections">pobierz zdarzenia</button>
 
     <h2 class="fw-bold text-white my-4 py-3"> Podgląd wszystkich zdarzeń</h2>
     <upcoming-events class="pt-1"></upcoming-events>
@@ -46,7 +47,7 @@ export default {
         UpcomingEvents
     },
     // data (){
-    //     pendingLectureId: ''
+    //     pendingPrelectionId: ''
     // },
 
 computed: {
@@ -54,24 +55,22 @@ computed: {
         alert: state=> state.alert
     }),
     ...mapGetters('prelection',{
-        pendingLecturesGetter: 'pendingLecturesGetter'
+        prelections: 'prelectionsGetter'
     }),
-    ...mapGetters('calEvents',{
-        eventsGetter: 'eventsGetter'
-    })
+
 },
 
 methods: {
     ...mapActions('prelection',{
-        getLecturesToApprove: 'getLecturesToApprove',
-        approveLecture: 'approveLecture',
-        delLecture: 'delLecture'
+        getPrelections: 'getPrelections',
+        approvePrelection: 'approvePrelection',
+        delPrelection: 'delPrelection'
     }),
     
 },
 
 mounted(){
-    this.getLecturesToApprove()
+    this.getPrelections()
 }
 }
 </script>

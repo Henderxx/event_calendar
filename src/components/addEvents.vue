@@ -84,7 +84,7 @@ computed: {
 
 methods: {
   ...mapActions('prelection', {
-    addLecture: 'addLecture'
+    addPrelection: 'addPrelection'
   }),
 
   onSubmit(){
@@ -96,7 +96,7 @@ methods: {
     formEvent.append('eventstartdate', this.startDate)
     formEvent.append('eventstopdate', this.endDate)
 
-    this.addLecture(formEvent)
+    this.addPrelection(formEvent)
     
     this.eventDescription = '',
     this.eventName = '',

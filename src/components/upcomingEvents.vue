@@ -17,15 +17,15 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(ev,index) of _eventsGetter" :key="index"  class="align-middle">
+          <tr v-for="(ev,index) of prelectionsGetter" :key="index"  class="align-middle">
               <td>{{index + 1}}</td>
-              <td>{{ev.eventstartdate}}</td>
-              <td>{{ev.eventstopdate}}</td>
-              <td>{{ev.eventname}}</td>
-              <td>{{ev.eventpersoncreator}}</td>
+              <td>{{ev.startDate}}</td>
+              <td>{{ev.stopDate}}</td>
+              <td>{{ev.name}}</td>
+              <td>{{ev.author}}</td>
               <td>{{ev.descr}}</td>
               <td><span v-if="!ev.approved" class="badge bg-warning text-black fs-6">Oczekujące</span><span v-else class="badge bg-success fs-6">Zatwierdzone</span></td>
-              <td v-if="auth"><button class="btn btn-danger" v-on:click="delApprovedLecture(ev.id)">Usuń</button></td>
+              <td v-if="auth"><button class="btn btn-danger" v-on:click="delPrelection(ev.id)">Usuń</button></td>
           </tr>
           </tbody>
       </table>
@@ -42,8 +42,8 @@ export default {
             alert: state => state.alert
         }),
 
-        ...mapGetters('calEvents', {
-            _eventsGetter: 'eventsGetter'
+        ...mapGetters('prelection', {
+            prelectionsGetter: 'prelectionsGetter'
         }),
 
         ...mapGetters('auth', {
@@ -52,16 +52,14 @@ export default {
     },
 
     methods: {
-        ...mapActions('calEvents', {
-            getEvents: 'getEvents'
-        }),
         ...mapActions('prelection',{
-            delApprovedLecture: 'delApprovedLecture'
+            delPrelection: 'delPrelection',
+            getPrelections: 'getPrelections'
         })
     },
 
     mounted() {
-        this.getEvents()
+        this.getPrelections()
     }
 }
 </script>

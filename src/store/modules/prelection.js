@@ -2,44 +2,38 @@ import axios from 'axios'
 import { base_path } from '../../config/config'
 
 const state = {
-    pendingPrelections: [],
-    allPrelections: []
+    Prelections: [],
+    calendarEvents: [],
 
 }
 
 const mutations = {
-    // addPendingLectures(state, data){
-    //     state.pendingLectures = []
-
-    //     for(const item of data){
-    //         const pendingItem = {}
-    //         const startDate = new Date(item.eventstartdate)
-    //         const stopDate = new Date(item.eventstopdate)
-    //         pendingItem.id = item.id
-    //         pendingItem.startDate = startDate
-    //         pendingItem.stopDate = stopDate
-    //         pendingItem.name = item.eventname
-    //         pendingItem.author = item.eventpersoncreator
-    //         if(item.descr === null){
-    //             pendingItem.description = ''
-    //         } else {
-    //             pendingItem.description = item.descr
-    //         }
-
-    //         state.pendingLectures.push(pendingItem)
-    //     }
-        
-    // },
 
     setPrelections(state, data){
-        state.allPrelections = []
-        state.pendingPrelections = []
+        state.Prelections = []
+        state.calendarEvents = []
 
         for(const item of data ) {
             const prelection = {}
             prelection.id = item.id
-            prelection.startDate = item.eventstopdate
-            prelection.stopDate = item.eventstopdate
+            const startDate = new Date(item.eventstartdate)
+            const startYear = startDate.getUTCFullYear().toString()
+            const startDay = startDate.getUTCDay().toString()
+            const startMonth = startDate.getUTCMonth() + 1
+            const startHour =startDate.getUTCHours().toString()
+            const startMinute = startDate.getUTCMinutes().toString()
+            const startTime = `${startYear}-${startMonth.toString().padStart(2, '0')}-${startDay.padStart(2, '0')} ${startHour}:${startMinute.padStart(2, '0')}`
+
+            const stopDate = new Date(item.eventstartdate)
+            const stopYear = stopDate.getUTCFullYear().toString()
+            const stopDay = stopDate.getUTCDay().toString()
+            const stopMonth = stopDate.getUTCMonth() + 1
+            const stopHour =stopDate.getUTCHours().toString()
+            const stopMinute = stopDate.getUTCMinutes().toString()
+            const stopTime = `${stopYear}-${stopMonth.toString().padStart(2, '0')}-${stopDay.padStart(2, '0')} ${stopHour}:${stopMinute.padStart(2, '0')}`
+            //console.log(startYear);
+            prelection.startDate = startTime
+            prelection.stopDate = stopTime
             prelection.author = item.eventpersoncreator
             prelection.name = item.eventname
                 if(item.descr === null){
@@ -51,10 +45,20 @@ const mutations = {
             // prelection.contactEmail = item.email
 
             if(item.approved){
-                state.allPrelections.push(prelection)
-            } else {
-                state.pendingPrelections.push(prelection)
-            }
+                const calendarEvent = {}
+                    calendarEvent.start = item.eventstartdate
+                    calendarEvent.end = item.eventstopdate
+                    calendarEvent.title = item.eventname
+                    calendarEvent.content = item.descr || ''
+                    calendarEvent.class = 'prelection'
+                    calendarEvent.deletable = false
+                    calendarEvent.resizable = false
+                    calendarEvent.draggable = false
+
+                state.calendarEvents.push(calendarEvent)
+            } 
+
+            state.Prelections.push(prelection)
             
         }
     }
@@ -81,6 +85,7 @@ async addPrelection({dispatch}, eventData){
         const req = await axios.post(base_path + '/eventadd', eventData)
         if (req.status === 200) {
             dispatch('alert/success', req.statusText, {root: true})
+            dispatch('getPrelections')
         }
     } catch (error) {
         const errorMessage = (error.response.data && error.response.data.message) || error
@@ -92,10 +97,8 @@ async approvePrelection({dispatch},selectedLecture) {
     const token = localStorage.getItem('token')
     const lectureToSend = {id: `${selectedLecture}`}
     try {
-        //console.log(`sel lecture id: ${selectedLecture}`);
         const res = await axios.post(base_path + '/approve', lectureToSend, { headers: {'Authorization': token, 'Content-Type': 'application/json'} })
     if (res.status === 200){
-        //console.log('ok');
         dispatch('getPrelections')
         //dispatch('calEvents/getEvents',res.status,{root:true})
     }
@@ -167,12 +170,12 @@ async delPrelection({dispatch}, selectedLecture){
 }
 
 const getters = {
-    pendingPrelectionsGetter(state){
-        return state.pendingLectures
+    prelectionsGetter(state){
+        return state.Prelections
     },
 
-    allPrelectionsGetter(state){
-        return state.allPrelections
+   calendarEventsGetter(state){
+        return state.calendarEvents
     }
 
 }

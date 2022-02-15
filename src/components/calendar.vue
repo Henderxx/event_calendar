@@ -48,9 +48,8 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('calEvents',{
-            eventy: 'eventsGetter',
-            calendarEvents: 'calendarEventsGet'
+        ...mapGetters('prelection',{
+            calendarEvents: 'calendarEventsGetter'
 
         })
     }
