@@ -24,7 +24,7 @@ const mutations = {
             const startMinute = startDate.getUTCMinutes().toString()
             const startTime = `${startYear}-${startMonth.toString().padStart(2, '0')}-${startDay.padStart(2, '0')} ${startHour}:${startMinute.padStart(2, '0')}`
 
-            const stopDate = new Date(item.eventstartdate)
+            const stopDate = new Date(item.eventstopdate)
             const stopYear = stopDate.getUTCFullYear().toString()
             const stopDay = stopDate.getUTCDay().toString()
             const stopMonth = stopDate.getUTCMonth() + 1
@@ -42,7 +42,7 @@ const mutations = {
                     prelection.description = item.descr
                 }
             prelection.approved = item.approved
-            // prelection.contactEmail = item.email
+            prelection.contactEmail = item.email
 
             if(item.approved){
                 const calendarEvent = {}
@@ -115,7 +115,7 @@ async approvePrelection({dispatch},selectedLecture) {
 async delPrelection({dispatch}, selectedLecture){
     const token = localStorage.getItem('token')
     // eslint-disable-next-line no-unused-vars
-    const lectureToSend = {id: `${selectedLecture}`}
+    const lectureToSend = {id: `${selectedLecture}`, msg: 'ss'}
     try {
         const res = await axios.delete(base_path + '/approve', { headers: {'Authorization': token, 'Content-Type': 'application/json'}, data: lectureToSend })
     if (res.status === 200){
