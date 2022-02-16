@@ -17,19 +17,19 @@ const mutations = {
             const prelection = {}
             prelection.id = item.id
             const startDate = new Date(item.eventstartdate)
-            const startYear = startDate.getUTCFullYear().toString()
-            const startDay = startDate.getUTCDay().toString()
-            const startMonth = startDate.getUTCMonth() + 1
-            const startHour =startDate.getUTCHours().toString()
-            const startMinute = startDate.getUTCMinutes().toString()
+            const startYear = startDate.getFullYear().toString()
+            const startDay = startDate.getDate().toString()
+            const startMonth = startDate.getMonth() + 1
+            const startHour =startDate.getHours().toString()
+            const startMinute = startDate.getMinutes().toString()
             const startTime = `${startYear}-${startMonth.toString().padStart(2, '0')}-${startDay.padStart(2, '0')} ${startHour}:${startMinute.padStart(2, '0')}`
 
             const stopDate = new Date(item.eventstopdate)
-            const stopYear = stopDate.getUTCFullYear().toString()
-            const stopDay = stopDate.getUTCDay().toString()
-            const stopMonth = stopDate.getUTCMonth() + 1
-            const stopHour =stopDate.getUTCHours().toString()
-            const stopMinute = stopDate.getUTCMinutes().toString()
+            const stopYear = stopDate.getFullYear().toString()
+            const stopDay = stopDate.getDate().toString()
+            const stopMonth = stopDate.getMonth() + 1
+            const stopHour =stopDate.getHours().toString()
+            const stopMinute = stopDate.getMinutes().toString()
             const stopTime = `${stopYear}-${stopMonth.toString().padStart(2, '0')}-${stopDay.padStart(2, '0')} ${stopHour}:${stopMinute.padStart(2, '0')}`
             //console.log(startYear);
             prelection.startDate = startTime
@@ -112,18 +112,16 @@ async approvePrelection({dispatch},selectedLecture) {
     }
 },
 
-async delPrelection({dispatch}, selectedLecture){
+async delPrelection({dispatch}, data){
     const token = localStorage.getItem('token')
-    // eslint-disable-next-line no-unused-vars
-    const lectureToSend = {id: `${selectedLecture}`, msg: 'ss'}
+    const lectureToSend = {id: data.id, msg: data.reason}
     try {
-        const res = await axios.delete(base_path + '/approve', { headers: {'Authorization': token, 'Content-Type': 'application/json'}, data: lectureToSend })
-    if (res.status === 200){
-        //console.log('ok');
+        const req = await axios.delete(base_path + '/approve', { headers: {'Authorization': token, 'Content-Type': 'application/json'}, data: lectureToSend })
+    if (req.status === 200){
         dispatch('getPrelections')
-       // dispatch('calEvents/getEvents',res.status,{root:true})
+        dispatch('alert/success', req.statusText, {root: true})
     }
-    if(res.status === 403){
+    if(req.status === 403){
         dispatch('auth/logout')
     }
     } catch (error) {

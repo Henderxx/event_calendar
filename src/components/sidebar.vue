@@ -70,7 +70,8 @@
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <formularz></formularz>
+                            <formularz class="mb-2"></formularz>
+                        <button type="submit" class="w-100 btn btn-lg btn-outline-light" data-bs-dismiss="modal" aria-label="Close">Zamknij</button>
                         </div>
                     </div>
                 </div>
