@@ -25,7 +25,7 @@
               <td>{{ev.name}}</td>
               <td>{{ev.author}}</td>
               <td>{{ev.description}}</td>
-              <td v-if="auth">{{ev.email}}</td>
+              <td v-if="auth">{{ev.contactEmail}}</td>
               <td><span v-if="!ev.approved" class="badge bg-warning text-black fs-6">Oczekujące</span><span v-else class="badge bg-success fs-6">Zatwierdzone</span></td>
               <!-- <td v-if="auth"><button class="btn btn-danger" v-on:click="delPrelection(ev.id)">Usuń</button></td> -->
               <td v-if="auth"><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletingModal" v-on:click="evId=ev.id" @click.prevent="clearAlert">Usuń</button></td>
