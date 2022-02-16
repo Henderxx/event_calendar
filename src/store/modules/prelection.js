@@ -131,39 +131,21 @@ async delPrelection({dispatch}, data){
     }
 },
 
-// async delApprovedLecture({dispatch}, selectedLecture){
-//     const token = localStorage.getItem('token')
-//     // eslint-disable-next-line no-unused-vars
-//     const lectureToSend = {id: `${selectedLecture}`}
-//     try {
-//         const res = await axios.delete(base_path + '/remove', { headers: {'Authorization': token, 'Content-Type': 'application/json'}, data: lectureToSend })
-//     if (res.status === 200){
-//         dispatch('calEvents/getEvents',res.status,{root:true})
-//     }
-//     if(res.status === 403){
-//         dispatch('auth/logout')
-//     }
-//     } catch (error) {
-//         const errorMessage = (error.response.data && error.response.data.message) || error
-//             dispatch('alert/error', errorMessage, { root: true })
-//             console.log(JSON.parse(error));
-//     }
-// },
-
-// async getLecturesToApprove({commit, dispatch}){
-//     const token = localStorage.getItem('token')
-//     try {
-//         const res = await axios.get(base_path + '/approve', { headers: {'Authorization': token} })
-//         commit('addPendingLectures', res.data)
-//         if(res.status === 403){
-//             dispatch('auth/logout')
-//         }
-//     } catch (error) {
-//         const errorMessage = (error.response.data && error.response.data.message) || error
-//             dispatch('alert/error', errorMessage, { root: true })
-//             console.log(JSON.parse(error));
-//     }
-// }
+async updatePrelection({dispatch}, data){
+    const token = localStorage.getItem('token')
+    try {
+        const req = await axios.put(base_path + '/approve', data, { headers: {'Authorization': token, 'Content-Type': 'application/json'} } )
+        if (req.status === 200){
+            dispatch('alert/success', req.statusText, {root: true})
+        }
+        if(req.status === 403){
+            dispatch('auth/logout')
+        }
+    } catch (error) {
+        const errorMessage = (error.response.data && error.response.data.message) || error
+            dispatch('alert/error', errorMessage, { root: true })
+    }
+}
     
 }
 

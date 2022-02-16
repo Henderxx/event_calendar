@@ -92,10 +92,11 @@ export default {
     methods: {
         ...mapActions('prelection',{
             delPrelection: 'delPrelection',
-            getPrelections: 'getPrelections'
+            getPrelections: 'getPrelections',
+            updatePrelection: 'updatePrelection'
         }),
          ...mapActions('alert', {
-        clearAlert: 'clear'
+            clearAlert: 'clear'
       }),
 
         onDelete(){
