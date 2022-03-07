@@ -22,32 +22,42 @@
                         <td>{{pendingPrelection.description}}</td>
                         <td>
                             <button class="btn btn-success" v-on:click="approvePrelection(pendingPrelection.id)">Zatwierdź</button>
+                            <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRow" >Edytuj</button>
                             <!-- <button class="btn btn-danger" v-on:click="delPrelection(pendingPrelection.id)">Usuń</button> -->
                         </td>
+                
                     </template>
                 </tr>
+                <template>
+
+                </template>
             </tbody>
         </table>
-            <div v-if="!prelections.length" class="bg-warning text-center text-black mb-3 rounded-1 py-2">
-                nie ma żadnych eventów do zatwierdzenia
-            </div>
-    <button class=" w-100 btn btn-outline-info" v-on:click="getPrelections">pobierz zdarzenia</button>
 
-    <h2 class="fw-bold text-white my-4 py-3"> Podgląd wszystkich zdarzeń</h2>
-    <upcoming-events class="pt-1"></upcoming-events>
+                <edit-event id="collapseRow" class="collapse"></edit-event>
+
+        <div v-if="!prelections.length" class="bg-warning text-center text-black mb-3 rounded-1 py-2">
+            nie ma żadnych eventów do zatwierdzenia
+        </div>
+            <button class=" w-100 btn btn-outline-info" v-on:click="getPrelections">pobierz zdarzenia</button>
+
+            <h2 class="fw-bold text-white my-4 py-3"> Podgląd wszystkich zdarzeń</h2>
+        <upcoming-events class="pt-1"></upcoming-events>
     </div>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex'
 import UpcomingEvents from '../components/upcomingEvents.vue'
+import editEvent from '../components/editEvent.vue'
 
 export default {
     components: {
-        UpcomingEvents
+        UpcomingEvents,
+        editEvent,
     },
     // data (){
-    //     pendingPrelectionId: ''
+    
     // },
 
 computed: {
