@@ -1,5 +1,14 @@
 <template>
 <table class="table table-dark table-striped table-hover pt-4 mt-3">
+    <!-- <thead>
+        <th>id</th>
+        <th>Data rozpoczęcia</th>
+        <th>Data zakończenia</th>
+        <th>Nazwa prelekcji</th>
+        <th>Prowadzacy</th>
+        <th>Opis</th>
+        <th>Akcje</th>
+    </thead> -->
     <tbody>
         <tr class="align-middle">
             <td>1</td>

@@ -25,16 +25,18 @@
                             <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRow" >Edytuj</button>
                             <!-- <button class="btn btn-danger" v-on:click="delPrelection(pendingPrelection.id)">Usuń</button> -->
                         </td>
-                
+
                     </template>
                 </tr>
-                <template>
-
-                </template>
+                <tr id="collapseRow" class="collapse">
+                    <td colspan="7">
+                        <edit-event></edit-event>
+                    </td>
+                </tr>
             </tbody>
         </table>
 
-                <edit-event id="collapseRow" class="collapse"></edit-event>
+                
 
         <div v-if="!prelections.length" class="bg-warning text-center text-black mb-3 rounded-1 py-2">
             nie ma żadnych eventów do zatwierdzenia
