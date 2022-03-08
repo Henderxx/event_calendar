@@ -11,9 +11,9 @@
                 <th>Opis</th>
                 <th>Akcje</th>
             </thead>
-            <tbody v-if="prelections.length" class="align-middle">
-                <tr v-for="(pendingPrelection, index) of prelections" :key="pendingPrelection.id">
-                    <template v-if="!pendingPrelection.approved">
+            <tbody v-if="pendingEvents.length" class="align-middle">
+                <template v-for="(pendingPrelection, index) of pendingEvents" >
+                <tr :key="pendingPrelection.id">
                         <td>{{index + 1 }}</td>
                         <td>{{pendingPrelection.startDate}}</td>
                         <td>{{pendingPrelection.stopDate}}</td>
@@ -22,29 +22,39 @@
                         <td>{{pendingPrelection.description}}</td>
                         <td>
                             <button class="btn btn-success" v-on:click="approvePrelection(pendingPrelection.id)">Zatwierdź</button>
-                            <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRow" >Edytuj</button>
+                            <button class="btn btn-warning" type="button" data-bs-toggle="collapse"  :data-bs-target="`#row${index + 1}`" >Edytuj</button>
                             <!-- <button class="btn btn-danger" v-on:click="delPrelection(pendingPrelection.id)">Usuń</button> -->
                         </td>
-
-                    </template>
                 </tr>
-                <tr id="collapseRow" class="collapse">
+                <tr :key="index" :id="`row${index + 1}`" class="collapse">
                     <td colspan="7">
-                        <edit-event></edit-event>
+                        <edit-event>{{pendingPrelection}}</edit-event>
                     </td>
                 </tr>
+                </template>
             </tbody>
         </table>
 
-                
-
-        <div v-if="!prelections.length" class="bg-warning text-center text-black mb-3 rounded-1 py-2">
+        <div v-if="!pendingEvents.length" class="bg-warning text-center text-black mb-3 rounded-1 py-2">
             nie ma żadnych eventów do zatwierdzenia
         </div>
             <button class=" w-100 btn btn-outline-info" v-on:click="getPrelections">pobierz zdarzenia</button>
 
             <h2 class="fw-bold text-white my-4 py-3"> Podgląd wszystkich zdarzeń</h2>
         <upcoming-events class="pt-1"></upcoming-events>
+<!-- 
+        <table>
+            <tbody>
+                <tr v-for="(item) of pendingEvents" :key="item.id">
+                    <td>{{item.id}}</td>
+                    <td>{{item.startDate}}</td>
+                    <td>{{item.stopDate}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.author}}</td>
+                    <td>{{item.description}}</td>
+                </tr>
+            </tbody>
+        </table> -->
     </div>
 </template>
 
@@ -59,7 +69,16 @@ export default {
         editEvent,
     },
     // data (){
+    //     return {
     
+    //     }
+    // },
+    // watch: {
+    //     pendingEvents: function(newEv,oldEv){
+    //         this.pendingEvents = this.setPendingevents()
+    //         console.log(newEv,oldEv);
+            
+    //     }
     // },
 
 computed: {
@@ -67,7 +86,8 @@ computed: {
         alert: state=> state.alert
     }),
     ...mapGetters('prelection',{
-        prelections: 'prelectionsGetter'
+        prelections: 'prelectionsGetter',
+        pendingEvents: 'pendingEventsGetter'
     }),
 
 },
@@ -78,11 +98,16 @@ methods: {
         approvePrelection: 'approvePrelection',
         delPrelection: 'delPrelection'
     }),
+
+    // setPendingevents(){
+    //     this.pendingEvents = this.prelections.filter((x) => x.approved  != true)
+    // }
     
 },
 
 mounted(){
     this.getPrelections()
+    // this.setPendingevents()
 }
 }
 </script>

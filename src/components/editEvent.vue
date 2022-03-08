@@ -1,5 +1,5 @@
 <template>
-<table class="table table-dark table-striped table-hover pt-4 mt-3">
+<table class="table table-dark table-striped pt-4 mt-3">
     <!-- <thead>
         <th>id</th>
         <th>Data rozpoczęcia</th>
@@ -23,7 +23,7 @@
             </td>
         </tr>
     </tbody>
-  
+  <slot></slot>
 </table>
 </template>
 
