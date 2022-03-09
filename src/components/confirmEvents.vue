@@ -28,7 +28,29 @@
                 </tr>
                 <tr :key="index" :id="`row${index + 1}`" class="collapse">
                     <td colspan="7">
-                        <edit-event>{{pendingPrelection}}</edit-event>
+                        <edit-event>
+                            <template v-slot:id>
+                                {{index + 1}}
+                            </template>
+                            <template v-slot:startdate>
+                                {{pendingPrelection.startDate}}
+                            </template>
+                            <template v-slot:stopdate>
+                                {{pendingPrelection.stopDate}}
+                            </template>
+                            <template v-slot:name>
+                                {{pendingPrelection.name}}
+                            </template>
+                            <template v-slot:author>
+                                {{pendingPrelection.author}}
+                            </template>
+                            <template v-slot:description>
+                                {{pendingPrelection.description}}
+                            </template>
+                            <template v-slot:button>
+                                <span><button class="btn btn-danger" type="button" data-bs-toggle="collapse" :data-bs-target="`#row${index + 1}`" >Anuluj</button></span>
+                            </template>
+                        </edit-event>
                     </td>
                 </tr>
                 </template>
