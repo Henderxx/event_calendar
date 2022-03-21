@@ -149,4 +149,11 @@ color: #bdbdbd;
   //   color: #bdbdbd;
   // }
 
+  // Create your own map
+$custom-colors: (
+  "szary": $gray-600
+);
+
+// Merge the maps
+$theme-colors: map-merge($theme-colors, $custom-colors);
   

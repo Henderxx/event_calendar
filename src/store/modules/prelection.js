@@ -58,8 +58,11 @@ const mutations = {
 const actions = {
 
 async getPrelections({commit,dispatch}){
+    const params = {
+        archived : false
+    }
     try {
-        const res = await axios.get(base_path + '/list')
+        const res = await axios.get(base_path + '/list', { params })
         if(res.status === 200){
             commit('setPrelections', res.data)
             commit('setPendingEvents')
@@ -128,6 +131,8 @@ async updatePrelection({dispatch}, data){
         const req = await axios.put(base_path + '/approve', data, { headers: {'Authorization': token, 'Content-Type': 'application/json'} } )
         if (req.status === 200){
             dispatch('alert/success', req.statusText, {root: true})
+            dispatch('getPrelections')
+            
         }
         if(req.status === 403){
             dispatch('auth/logout')

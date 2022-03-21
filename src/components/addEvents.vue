@@ -88,7 +88,7 @@ methods: {
     addPrelection: 'addPrelection'
   }),
 
-  onSubmit(){
+  async onSubmit(){
 
     const formEvent = new FormData()
     formEvent.append('descr', this.eventDescription)
@@ -98,7 +98,7 @@ methods: {
     formEvent.append('eventstopdate', this.endDate)
     formEvent.append('email', this.email)
 
-    this.addPrelection(formEvent)
+    await this.addPrelection(formEvent)
     
     this.eventDescription = '',
     this.eventName = '',
@@ -106,6 +106,7 @@ methods: {
     this.startDate = '',
     this.endDate = '',
     this.email = ''
+    window.location.reload()
   },
 
 }
