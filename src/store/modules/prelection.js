@@ -3,6 +3,8 @@ import { base_path } from '../../config/config'
 
 const state = {
     Prelections: [],
+    pendingEvents: [],
+    //archivedEvents: [],
     calendarEvents: [],
 
 }
@@ -16,24 +18,8 @@ const mutations = {
         for(const item of data ) {
             const prelection = {}
             prelection.id = item.id
-            const startDate = new Date(item.eventstartdate)
-            const startYear = startDate.getFullYear().toString()
-            const startDay = startDate.getDate().toString()
-            const startMonth = startDate.getMonth() + 1
-            const startHour =startDate.getHours().toString()
-            const startMinute = startDate.getMinutes().toString()
-            const startTime = `${startYear}-${startMonth.toString().padStart(2, '0')}-${startDay.padStart(2, '0')} ${startHour}:${startMinute.padStart(2, '0')}`
-
-            const stopDate = new Date(item.eventstopdate)
-            const stopYear = stopDate.getFullYear().toString()
-            const stopDay = stopDate.getDate().toString()
-            const stopMonth = stopDate.getMonth() + 1
-            const stopHour =stopDate.getHours().toString()
-            const stopMinute = stopDate.getMinutes().toString()
-            const stopTime = `${stopYear}-${stopMonth.toString().padStart(2, '0')}-${stopDay.padStart(2, '0')} ${stopHour}:${stopMinute.padStart(2, '0')}`
-            //console.log(startYear);
-            prelection.startDate = startTime
-            prelection.stopDate = stopTime
+            prelection.startDate = convertTime(item.eventstartdate)
+            prelection.stopDate = convertTime(item.eventstopdate)
             prelection.author = item.eventpersoncreator
             prelection.name = item.eventname
                 if(item.descr === null){
@@ -61,17 +47,25 @@ const mutations = {
             state.Prelections.push(prelection)
             
         }
-    }
+    },
+
+    setPendingEvents(state){
+        state.pendingEvents = state.Prelections.filter((x) => x.approved != true)
+    },
 
 }
 
 const actions = {
 
 async getPrelections({commit,dispatch}){
+    const params = {
+        archived : false
+    }
     try {
-        const res = await axios.get(base_path + '/list')
+        const res = await axios.get(base_path + '/list', { params })
         if(res.status === 200){
             commit('setPrelections', res.data)
+            commit('setPendingEvents')
         }
     } catch (error) {
         const errorMessage = (error.message && error.state) || error
@@ -131,39 +125,23 @@ async delPrelection({dispatch}, data){
     }
 },
 
-// async delApprovedLecture({dispatch}, selectedLecture){
-//     const token = localStorage.getItem('token')
-//     // eslint-disable-next-line no-unused-vars
-//     const lectureToSend = {id: `${selectedLecture}`}
-//     try {
-//         const res = await axios.delete(base_path + '/remove', { headers: {'Authorization': token, 'Content-Type': 'application/json'}, data: lectureToSend })
-//     if (res.status === 200){
-//         dispatch('calEvents/getEvents',res.status,{root:true})
-//     }
-//     if(res.status === 403){
-//         dispatch('auth/logout')
-//     }
-//     } catch (error) {
-//         const errorMessage = (error.response.data && error.response.data.message) || error
-//             dispatch('alert/error', errorMessage, { root: true })
-//             console.log(JSON.parse(error));
-//     }
-// },
-
-// async getLecturesToApprove({commit, dispatch}){
-//     const token = localStorage.getItem('token')
-//     try {
-//         const res = await axios.get(base_path + '/approve', { headers: {'Authorization': token} })
-//         commit('addPendingLectures', res.data)
-//         if(res.status === 403){
-//             dispatch('auth/logout')
-//         }
-//     } catch (error) {
-//         const errorMessage = (error.response.data && error.response.data.message) || error
-//             dispatch('alert/error', errorMessage, { root: true })
-//             console.log(JSON.parse(error));
-//     }
-// }
+async updatePrelection({dispatch}, data){
+    const token = localStorage.getItem('token')
+    try {
+        const req = await axios.put(base_path + '/approve', data, { headers: {'Authorization': token, 'Content-Type': 'application/json'} } )
+        if (req.status === 200){
+            dispatch('alert/success', req.statusText, {root: true})
+            dispatch('getPrelections')
+            
+        }
+        if(req.status === 403){
+            dispatch('auth/logout')
+        }
+    } catch (error) {
+        const errorMessage = (error.response.data && error.response.data.message) || error
+            dispatch('alert/error', errorMessage, { root: true })
+    }
+}
     
 }
 
@@ -174,8 +152,23 @@ const getters = {
 
    calendarEventsGetter(state){
         return state.calendarEvents
+    },
+
+    pendingEventsGetter(state){
+        return state.pendingEvents
     }
 
+}
+
+function convertTime(r_date){
+    const startDate = new Date(r_date)
+    const startYear = startDate.getFullYear().toString()
+    const startDay = startDate.getDate().toString()
+    const startMonth = startDate.getMonth() + 1
+    const startHour =startDate.getHours().toString()
+    const startMinute = startDate.getMinutes().toString()
+    const startTime = `${startYear}-${startMonth.toString().padStart(2, '0')}-${startDay.padStart(2, '0')} ${startHour}:${startMinute.padStart(2, '0')}`
+    return startTime
 }
 
 export default {
