@@ -1,18 +1,15 @@
 module.exports = {
   publicPath: '/',
 
-  // css: {
-  //   loaderOptions: {
-  //     sass: {
-  //       additionalData: `
-  //       @import "@/scss/global.scss"
-  //       `,
-  //       implementation: require('sass')
-  //     }
-  //   }
-  // },
+  css: {
+    loaderOptions: {
+      scss: {
+        additionalData: `
+        @import "@/scss/global.scss"
+        `,
+      },
+    },
+  },
 
-  transpileDependencies: [
-    'vuetify'
-  ]
-};
+  transpileDependencies: ['vuetify'],
+}
